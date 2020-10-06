@@ -1,0 +1,111 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define ll long long int
+#define ld long double
+#define MAX 2000001
+#define MOD 1000000007
+#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+#define pi 3.14159265358979323846
+#define Q ll _; cin >> _; while(_--)
+#define endl "\n"
+#define flush fflush(stdout);
+
+int main(){
+
+    fast;
+
+    Q{
+        ll i,n,k;
+        cin >> n >> k;
+        ll l1,r1,l2,r2;
+        cin >> l1 >> r1;
+        cin >> l2 >> r2;
+        if(l1>l2){
+            swap(l1,l2);
+            swap(r1,r2);
+        }
+
+        ll cnt = 0;
+
+        if(l2>r1){
+            ll len = r2-l1;
+            ll waste = l2-r1;
+            cnt+=waste;
+            if(k<=len){
+                cnt+=k;
+                cout << cnt << endl;
+                continue;
+            }
+            else{
+                cnt+=len;
+                k-=len;
+            }
+            for(i=1;i<n;i++){
+                if(waste>=k){
+                    cnt+=(2*k);
+                    k=0;
+                    break;
+                }
+                else{
+                    cnt+=waste;
+                    if(k<=len){
+                        cnt+=k;
+                        k=0;
+                        break;
+                    }
+                    else{
+                        cnt+=len;
+                        k-=len;
+                    }
+                }
+            }
+            if(k==0){
+                cout << cnt << endl;
+            }
+            else{
+                cnt+=(2*k);
+                cout << cnt << endl;
+            }
+        }
+        else{
+            ll len = max(r1,r2) - min(l1,l2);
+            ll inter = min(r1,r2)-l2;
+            k-=(n*inter);
+            if(k<=0){
+                cout << 0 << endl;
+                continue;
+            }
+            else{
+                for(i=0;i<n;i++){
+                    if(k<=(len-inter)){
+                        cnt+=k;
+                        k = 0;
+                        break;
+                    }
+                    else{
+                        k-=(len-inter);
+                        cnt+=(len-inter);
+                    }
+                }
+                if(k==0){
+                    cout << cnt << endl;
+                    continue;
+                }
+                else{
+                    cnt+=(2*k);
+                    cout << cnt << endl;
+                    continue;
+                }
+            }
+        }
+
+
+    }
+
+}
+
+
+//    cout << fixed << setprecision(12);
